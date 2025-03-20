@@ -1,5 +1,5 @@
 {
-    "name": "gii/module-service",
+    "name": "hanafalah/module-service",
     "description": "module for service in klinik or puskesmas",
     "type": "library",
     "require": {
@@ -8,18 +8,18 @@
         "http-interop/http-factory-guzzle": "^1.2",
         "illuminate/support": "^11.26",
         "symfony/process": "^7.1",
-        "zahzah/laravel-support": "1.x",
-        "zahzah/module-transaction": "1.x"
+        "hanafalah/laravel-support": "1.x",
+        "hanafalah/module-transaction": "1.x"
     },
     "autoload": {
         "psr-4": {
-            "Gii\\ModuleService\\": "src/"
+            "Hanafalah\\ModuleService\\": "src/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Gii\\ModuleService\\ModuleServiceServiceProvider"
+                "Hanafalah\\ModuleService\\ModuleServiceServiceProvider"
             ]
         }
     },

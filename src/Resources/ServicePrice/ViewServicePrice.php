@@ -1,8 +1,8 @@
 <?php
 
-namespace Gii\ModuleService\Resources\ServicePrice;
+namespace Hanafalah\ModuleService\Resources\ServicePrice;
 
-use Zahzah\LaravelSupport\Resources\ApiResource;
+use Hanafalah\LaravelSupport\Resources\ApiResource;
 
 class ViewServicePrice extends ApiResource
 {
@@ -21,19 +21,19 @@ class ViewServicePrice extends ApiResource
             'current'                => $this->current,
             'parent_id'              => $this->parent_id,
             'service_id'             => $this->service_id,
-            'service'                => $this->relationValidation('service',function(){
+            'service'                => $this->relationValidation('service', function () {
                 return $this->service->toViewApi();
             }),
             'service_item_id'        => $this->service_item_id,
             'service_item_type'      => $this->service_item_type,
-            'service_item'           => $this->relationValidation('serviceItem',function(){
+            'service_item'           => $this->relationValidation('serviceItem', function () {
                 return $this->serviceItem->toViewApi();
             }),
             'price'                  => $this->price
         ];
 
         foreach ($props as $key => $value) $arr[$key] = $value;
-         // Sort array by keys
+        // Sort array by keys
         return $arr;
     }
 }

@@ -1,18 +1,18 @@
 <?php
 
-namespace Gii\ModuleService;
+namespace Hanafalah\ModuleService;
 
-use Gii\ModuleService\Schemas\{
+use Hanafalah\ModuleService\Schemas\{
     ServiceItem,
     Service,
     ModelHasService,
     ServicePrice
 };
 
-use Gii\ModuleService\Models\{
+use Hanafalah\ModuleService\Models\{
     Service as ModelsService,
 };
-use Zahzah\LaravelSupport\Providers\BaseServiceProvider;
+use Hanafalah\LaravelSupport\Providers\BaseServiceProvider;
 
 class ModuleServiceServiceProvider extends BaseServiceProvider
 {
@@ -24,10 +24,10 @@ class ModuleServiceServiceProvider extends BaseServiceProvider
     public function register()
     {
         $this->registerMainClass(ModuleService::class)
-//             ->registerCommandService(Providers\CommandServiceProvider::class)
-             ->registers([
+            //             ->registerCommandService(Providers\CommandServiceProvider::class)
+            ->registers([
                 '*',
-                'Services'  => function(){
+                'Services'  => function () {
                     $this->binds([
                         Contracts\ModuleService::class   => ModuleService::class,
                         Contracts\ServiceItem::class     => ServiceItem::class,
@@ -36,14 +36,16 @@ class ModuleServiceServiceProvider extends BaseServiceProvider
                         Contracts\ServicePrice::class    => ServicePrice::class,
                     ]);
                 }
-             ]);
+            ]);
     }
 
-    protected function dir(): string{
-        return __DIR__.'/';
+    protected function dir(): string
+    {
+        return __DIR__ . '/';
     }
 
-    protected function migrationPath(string $path = ''): string{
+    protected function migrationPath(string $path = ''): string
+    {
         return database_path($path);
     }
 }

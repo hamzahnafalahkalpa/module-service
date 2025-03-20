@@ -1,6 +1,6 @@
 <?php
 
-use Gii\ModuleService\{
+use Hanafalah\ModuleService\{
     Models as ModuleService,
     Contracts
 };

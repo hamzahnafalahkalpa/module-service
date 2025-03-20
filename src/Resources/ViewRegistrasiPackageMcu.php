@@ -1,9 +1,9 @@
 <?php
 
-namespace Gii\ModuleService\Resources;
+namespace Hanafalah\ModuleService\Resources;
 
-use Zahzah\LaravelSupport\Resources\ApiResource;
-use Gii\ModuleService\Enums\ServiceItem\Flag;
+use Hanafalah\LaravelSupport\Resources\ApiResource;
+use Hanafalah\ModuleService\Enums\ServiceItem\Flag;
 
 class ViewRegistrasiPackageMcu extends ApiResource
 {
@@ -14,28 +14,30 @@ class ViewRegistrasiPackageMcu extends ApiResource
      * @param  \Illuminate\Http\Request  $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
-    public function toArray($request) : array {
-       $arr = [
-           'id'              => $this->id,
-           'name'            => $this->name ?? "Name is Invalid",
-           'price'           => $this->price ?? 0,
-           'flag'            => $this->flag ?? "ITEM",
-           'category_id'     => $this->category_id ?? null,
-           'category_name'   => $this->category_name ?? null,
-           'type'            => $this->type ?? null,
-           'guarantor_name'  => $this->guarantor_name ?? null,
-           'guarantor_id'    => $this->guarantor_id ?? null,
-           'created_at'      => $this->created_at ?? null,
-       ];
+    public function toArray($request): array
+    {
+        $arr = [
+            'id'              => $this->id,
+            'name'            => $this->name ?? "Name is Invalid",
+            'price'           => $this->price ?? 0,
+            'flag'            => $this->flag ?? "ITEM",
+            'category_id'     => $this->category_id ?? null,
+            'category_name'   => $this->category_name ?? null,
+            'type'            => $this->type ?? null,
+            'guarantor_name'  => $this->guarantor_name ?? null,
+            'guarantor_id'    => $this->guarantor_id ?? null,
+            'created_at'      => $this->created_at ?? null,
+        ];
 
-       $this->mapChildsWithDynamicKeys($arr, $this);
+        $this->mapChildsWithDynamicKeys($arr, $this);
 
-       
-       return $arr;
-  }
 
-  private function mapChildsWithDynamicKeys(array &$arr, $item) {
-         $keyName = match ($item->flag) {
+        return $arr;
+    }
+
+    private function mapChildsWithDynamicKeys(array &$arr, $item)
+    {
+        $keyName = match ($item->flag) {
             Flag::MAIN_PACKAGE->value     => 'packages',
             Flag::CATEGORY_PACKAGE->value => 'poliKlinik',
             default => 'treatment'
@@ -47,7 +49,7 @@ class ViewRegistrasiPackageMcu extends ApiResource
                     $q->whereIn("flag", [Flag::POLI_PACKAGE->value]);
                 }, "reference"]);
 
-                if($child->flag == Flag::CATEGORY_PACKAGE->value) {
+                if ($child->flag == Flag::CATEGORY_PACKAGE->value) {
                     $child->setRelation("childs", $this->childs);
                     $child->load('servicePriceCategories.serviceItem');
                     $child->childs->map(function ($poli) use ($child) {
@@ -75,5 +77,5 @@ class ViewRegistrasiPackageMcu extends ApiResource
                 return $childArr;
             });
         });
-  }
+    }
 }

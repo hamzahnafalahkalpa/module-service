@@ -1,8 +1,8 @@
 <?php
 
-namespace Gii\ModuleService\Resources\ServicePrice;
+namespace Hanafalah\ModuleService\Resources\ServicePrice;
 
-use Zahzah\LaravelSupport\Resources\ApiResource;
+use Hanafalah\LaravelSupport\Resources\ApiResource;
 
 class ShowServicePrice extends ApiResource
 {
@@ -15,15 +15,15 @@ class ShowServicePrice extends ApiResource
     public function toArray($request): array
     {
         $arr = [
-            'service'                => $this->relationValidation('service',function(){
+            'service'                => $this->relationValidation('service', function () {
                 return $this->service->toShowApi();
             }),
-            'service_item'           => $this->relationValidation('serviceItem',function(){
+            'service_item'           => $this->relationValidation('serviceItem', function () {
                 return $this->serviceItem->toShowApi();
             })
         ];
-        $arr = $this->mergeArray(parent::toArray($request),$arr);
-         // Sort array by keys
+        $arr = $this->mergeArray(parent::toArray($request), $arr);
+        // Sort array by keys
         return $arr;
     }
 }

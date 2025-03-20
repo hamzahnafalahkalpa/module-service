@@ -1,19 +1,20 @@
 <?php
 
-namespace Gii\ModuleService\Schemas;
+namespace Hanafalah\ModuleService\Schemas;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
-use Gii\ModuleService\Contracts\ServiceItem as ContractServiceItem;
-use Gii\ModuleService\Contracts\ServicePrice;
-use Gii\ModuleService\Resources\ServiceItem\ViewServiceItem;
+use Hanafalah\ModuleService\Contracts\ServiceItem as ContractServiceItem;
+use Hanafalah\ModuleService\Contracts\ServicePrice;
+use Hanafalah\ModuleService\Resources\ServiceItem\ViewServiceItem;
 use Illuminate\Database\Eloquent\Relations\Relation;
-use Zahzah\LaravelSupport\Supports\PackageManagement;
+use Hanafalah\LaravelSupport\Supports\PackageManagement;
 
-class ServiceItem extends PackageManagement implements ContractServiceItem{
-    protected array $__guard   = ['id','reference_id'];
-    protected array $__add     = ["parent_id","reference_type",'flag'];
+class ServiceItem extends PackageManagement implements ContractServiceItem
+{
+    protected array $__guard   = ['id', 'reference_id'];
+    protected array $__add     = ["parent_id", "reference_type", 'flag'];
     protected string $__entity = 'ServiceItem';
     public static $service_item_model;
 
@@ -22,7 +23,8 @@ class ServiceItem extends PackageManagement implements ContractServiceItem{
         'show' => ViewServiceItem::class
     ];
 
-    public function prepareStoreServiceItem(? array $attributes = null): Model{
+    public function prepareStoreServiceItem(?array $attributes = null): Model
+    {
         $attributes ??= request()->all();
 
         if (!isset($attributes['service_id'])) throw new \Exception('service_id is required');
@@ -36,7 +38,7 @@ class ServiceItem extends PackageManagement implements ContractServiceItem{
             'service_id'      => $attributes['service_id'],
             'reference_id'    => $item->getKey(),
             'reference_type'  => $item->getMorphClass()
-        ],[
+        ], [
             'name'  => $item->name ?? null,
             'price' => $item->price ?? 0
         ]);
@@ -45,7 +47,7 @@ class ServiceItem extends PackageManagement implements ContractServiceItem{
 
         $exceptions = $model->getFillable();
         $exceptions[] = 'service_price';
-        foreach ($attributes as $key => $value){
+        foreach ($attributes as $key => $value) {
             if (!in_array($key, $exceptions)) $model->{$key} = $value;
         }
         $model->save();
@@ -61,42 +63,48 @@ class ServiceItem extends PackageManagement implements ContractServiceItem{
         return static::$service_item_model = $model;
     }
 
-    public function storeServiceItem(): array{
-        return $this->transaction(function(){
+    public function storeServiceItem(): array
+    {
+        return $this->transaction(function () {
             return $this->showServiceItem($this->prepareStoreServiceItem());
         });
     }
 
-    public function prepareShowServiceItem(? Model $model = null, ? array $attributes = null): Model{
+    public function prepareShowServiceItem(?Model $model = null, ?array $attributes = null): Model
+    {
         $attributes ??= request()->all();
 
         $model ??= $this->getServiceItem();
-        if (!isset($model)){
+        if (!isset($model)) {
             $id = $attributes['id'] ?? null;
             if (!isset($id)) throw new \Exception('id is required');
 
             $model = $this->ServiceItemModel()->with($this->showUsingRelation())->findOrFail($id);
-        }else{
+        } else {
             $model->load($this->showUsingRelation());
         }
 
         return static::$service_item_model = $model;
     }
 
-    public function showServiceItem(? Model $model = null): array{
-        return $this->transforming($this->__resources['show'],function() use ($model){
+    public function showServiceItem(?Model $model = null): array
+    {
+        return $this->transforming($this->__resources['show'], function () use ($model) {
             return $this->prepareShowServiceItem($model);
         });
     }
 
-    public function showUsingRelation(): array{
+    public function showUsingRelation(): array
+    {
         return [
-            'item','childs'
+            'item',
+            'childs'
         ];
     }
 
 
-    public function prepareViewServiceItemList(? array $attributes = null): array{
+    public function prepareViewServiceItemList(?array $attributes = null): array
+    {
         $attributes ??= request()->all();
 
         $model = $this->serviceItem()->conditionals($this->mergeCondition([]))->get();
@@ -104,22 +112,26 @@ class ServiceItem extends PackageManagement implements ContractServiceItem{
         return static::$service_item_model = $model;
     }
 
-    public function addOrChange(? array $attributes=[]): self{
+    public function addOrChange(?array $attributes = []): self
+    {
         $this->updateOrCreate($attributes);
         return $this;
     }
 
-    public function get(mixed $conditionals=null) : Collection{
+    public function get(mixed $conditionals = null): Collection
+    {
         return $this->serviceItem()->get();
     }
 
 
-    public function refind(mixed $id = null) :  Model|null{
+    public function refind(mixed $id = null): Model|null
+    {
         return $this->serviceItem()->find($id ??= request());
     }
 
-    protected function serviceItem($conditionals=[]): Builder{
+    protected function serviceItem($conditionals = []): Builder
+    {
         $this->booting();
-        return $this->ServiceItemModel()->conditionals($conditionals)->withParameters()->orderBy('props->name','asc');
+        return $this->ServiceItemModel()->conditionals($conditionals)->withParameters()->orderBy('props->name', 'asc');
     }
 }

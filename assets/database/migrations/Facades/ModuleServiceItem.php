@@ -1,11 +1,11 @@
 <?php
 
-namespace Gii\ModuleService\Facades;
+namespace Hanafalah\ModuleService\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \Gii\Service-module\Services\
+ * @see \Hanafalah\Service-module\Services\
  */
 class ModuleServiceItem extends Facade
 {

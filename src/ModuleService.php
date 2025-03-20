@@ -1,9 +1,7 @@
 <?php
 
-namespace Gii\ModuleService;
+namespace Hanafalah\ModuleService;
 
-use Zahzah\LaravelSupport\Supports\PackageManagement;
+use Hanafalah\LaravelSupport\Supports\PackageManagement;
 
-class ModuleService extends PackageManagement{
- 
-}
+class ModuleService extends PackageManagement {}

@@ -1,8 +1,9 @@
 <?php
 
-namespace Gii\ModuleService\Enums\ServiceItem;
+namespace Hanafalah\ModuleService\Enums\ServiceItem;
 
-enum Flag : string {
+enum Flag: string
+{
     case MAIN_PACKAGE       = 'MAIN_PACKAGE';
     case CATEGORY_PACKAGE   = 'CATEGORY';
     case SPESICIAL_PACKAGE  = 'SPECIAL_PACKAGE';
