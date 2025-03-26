@@ -2,7 +2,7 @@
 
 namespace Hanafalah\ModuleService\Schemas;
 
-use Hanafalah\ModuleService\Contracts\Service as ContractsService;
+use Hanafalah\ModuleService\Contracts\Schemas\Service as ContractsService;
 use Hanafalah\ModuleService\Resources\ShowService;
 use Hanafalah\ModuleService\Resources\ViewService;
 use Illuminate\Database\Eloquent\Builder;

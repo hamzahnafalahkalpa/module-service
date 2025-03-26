@@ -1,10 +1,10 @@
 <?php
 
-namespace Hanafalah\ModuleService\Contracts;
+namespace Hanafalah\ModuleService\Contracts\Schemas;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Hanafalah\LaravelSupport\Contracts\DataManagement;
+use Hanafalah\LaravelSupport\Contracts\Supports\DataManagement;
 
 interface ServicePrice extends DataManagement
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace Hanafalah\ModuleService\Contracts;
+namespace Hanafalah\ModuleService\Contracts\Schemas;
 
 use Illuminate\Database\Eloquent\Collection;
-use Hanafalah\LaravelSupport\Contracts\DataManagement;
+use Hanafalah\LaravelSupport\Contracts\Supports\DataManagement;
 
 interface ModelHasService extends DataManagement
 {
