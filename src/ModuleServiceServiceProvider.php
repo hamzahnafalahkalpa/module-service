@@ -24,10 +24,8 @@ class ModuleServiceServiceProvider extends BaseServiceProvider
     public function register()
     {
         $this->registerMainClass(ModuleService::class)
-            //             ->registerCommandService(Providers\CommandServiceProvider::class)
-            ->registers([
-                '*'
-            ]);
+            ->registerCommandService(Providers\CommandServiceProvider::class)
+            ->registers(['*']);
     }
 
     protected function dir(): string
