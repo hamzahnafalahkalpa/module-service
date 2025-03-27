@@ -4,7 +4,7 @@ namespace Hanafalah\ModuleService\Schemas;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Hanafalah\ModuleService\Contracts\ServicePrice as ContractServicePrice;
+use Hanafalah\ModuleService\Contracts\Schemas\ServicePrice as ContractServicePrice;
 use Hanafalah\ModuleService\Resources\ServicePrice\ShowServicePrice;
 use Hanafalah\LaravelSupport\Supports\PackageManagement;
 

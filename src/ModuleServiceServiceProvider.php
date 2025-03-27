@@ -26,16 +26,7 @@ class ModuleServiceServiceProvider extends BaseServiceProvider
         $this->registerMainClass(ModuleService::class)
             //             ->registerCommandService(Providers\CommandServiceProvider::class)
             ->registers([
-                '*',
-                'Services'  => function () {
-                    $this->binds([
-                        Contracts\ModuleService::class   => ModuleService::class,
-                        Contracts\ServiceItem::class     => ServiceItem::class,
-                        Contracts\Service::class         => Service::class,
-                        Contracts\ModelHasService::class => ModelHasService::class,
-                        Contracts\ServicePrice::class    => ServicePrice::class,
-                    ]);
-                }
+                '*'
             ]);
     }
 
