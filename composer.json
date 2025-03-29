@@ -8,8 +8,8 @@
         "http-interop/http-factory-guzzle": "^1.2",
         "illuminate/support": "^11.26",
         "symfony/process": "^7.1",
-        "hanafalah/laravel-support": "dev-main",
-        "hanafalah/module-transaction": "dev-main"
+        "hanafalah/laravel-support": "@dev",
+        "hanafalah/module-transaction": "@dev"
     },
     "autoload": {
         "psr-4": {
