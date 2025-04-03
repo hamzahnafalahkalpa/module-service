@@ -39,14 +39,14 @@ class ServicePrice extends BaseModel
         });
     }
 
-    public function toViewApi()
+    public function getViewResource()
     {
-        return new ViewServicePrice($this);
+        return ViewServicePrice::class;
     }
 
-    public function toShowApi()
+    public function getShowResource()
     {
-        return new ShowServicePrice($this);
+        return ShowServicePrice::class;
     }
 
     //EIGER SECTION

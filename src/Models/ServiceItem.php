@@ -29,14 +29,14 @@ class ServiceItem extends BaseModel
     ];
     protected $show       = [];
 
-    public function toViewApi()
+    public function getViewResource()
     {
-        return new ViewServiceItem($this);
+        return ViewServiceItem::class;
     }
 
-    public function toShowApi()
+    public function getShowResource()
     {
-        return new ShowServiceItem($this);
+        return ShowServiceItem::class;
     }
 
     //END EIGER SECTION
