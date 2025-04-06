@@ -3,11 +3,6 @@
     "description": "module for service in klinik or puskesmas",
     "type": "library",
     "require": {
-        "php": "^7.0|^8.0",
-        "guzzlehttp/guzzle": "^7.8",
-        "http-interop/http-factory-guzzle": "^1.2",
-        "illuminate/support": "^11.26",
-        "symfony/process": "^7.1",
         "hanafalah/laravel-support": "1.x",
         "hanafalah/module-transaction": "1.x"
     },
