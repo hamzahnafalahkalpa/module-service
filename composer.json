@@ -3,8 +3,8 @@
     "description": "module for service in klinik or puskesmas",
     "type": "library",
     "require": {
-        "hanafalah/laravel-support": "1.x",
-        "hanafalah/module-transaction": "1.x"
+        "hanafalah/laravel-support": "1.x-dev as 1.0",
+        "hanafalah/module-transaction": "1.x-dev as 1.0"
     },
     "autoload": {
         "psr-4": {
@@ -24,7 +24,5 @@
             "email": "hamzahnafalah@gmail.com"
         }
     ],
-    "license": "MIT",
-    "minimum-stability": "dev",
-    "prefer-stable": false
+    "license": "MIT"
 }
