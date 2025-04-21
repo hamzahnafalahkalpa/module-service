@@ -25,9 +25,9 @@ class Service extends PackageManagement implements ContractsService
         ]
     ];
 
-    public function commonService(array $morphs, mixed $conditionals = null): Builder{
-        return $this->service($conditionals)->whereIn('reference_type', $morphs)
-            ->with('reference')->orderBy('props->name', 'asc');
+    public function commonService(string|array $morphs, mixed $conditionals = null): Builder{
+        $morphs = $this->mustArray($morphs);
+        return $this->service($conditionals)->whereIn('reference_type', $morphs)->with('reference')->orderBy('props->name', 'asc');
     }
 
     private function localAddSuffixCache(mixed $suffix): void{

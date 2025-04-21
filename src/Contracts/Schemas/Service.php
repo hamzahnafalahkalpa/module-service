@@ -10,7 +10,7 @@ use Hanafalah\LaravelSupport\Contracts\Supports\DataManagement;
 
 interface Service extends DataManagement
 {
-    public function commonService(array $morphs, mixed $conditionals = null): Builder;
+    public function commonService(string|array $morphs, mixed $conditionals = null): Builder;
     public function prepareViewServicePaginate(mixed $cache_reference_type, ?array $morphs = null, PaginateData $paginate_dto): LengthAwarePaginator;
     public function viewServicePaginate(mixed $cache_reference_type, ?array $morphs = null, ? PaginateData $paginate_dto = null): array;
     public function prepareViewServiceList(mixed $cache_reference_type, ?array $morphs = null): Collection;

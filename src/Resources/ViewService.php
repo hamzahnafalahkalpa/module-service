@@ -42,27 +42,12 @@ class ViewService extends ApiResource
         });
       }),
       "reference"      => $this->relationValidation("reference", function () {
-        switch ($this->reference_type) {
-          case $this->MedicServiceModel()->getMorphClass():
-            $medic_service = $this->reference;
-            return [
-              'id'     => $medic_service->getKey(),
-              'color'  => $medic_service->color,
-              'flag'   => $medic_service->flag
-            ];
-            break;
-          default:
-            return $this->reference;
-        }
+        return $this->reference->toViewApi();
       }),
       "childs"         => $this->relationValidation("childs", function () {
         return $this->childs->transform(function ($child) {
           return $child->toViewApi();
         });
-        // $childs = $this->childs;
-        // return $childs->map(function($child){
-        //     return new static($child);
-        // });
       }),
       'created_at' => $this->created_at,
       'updated_at' => $this->updated_at
