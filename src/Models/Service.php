@@ -29,48 +29,26 @@ class Service extends BaseModel
         });
     }
 
-    public function getViewResource()
-    {
-        return ViewService::class;
+    public function viewUsingRelation(): array{
+        return ['reference'];
     }
 
-    public function getShowResource()
-    {
-        return ShowService::class;
+    public function viewUsingRelations(): array{
+        return ['reference'];
     }
 
-    public function reference()
-    {
-        return $this->morphTo();
-    }
-
-    public function serviceItem()
-    {
-        return $this->hasOneModel('ServiceItem', 'service_id');
-    }
-
-    public function serviceItems()
-    {
-        return $this->hasManyModel('ServiceItem', 'service_id')->whereNull('parent_id')->with('childs');
-    }
-
-    public function additionalItem()
-    {
-        return $this->hasOneModel('ServiceItem', 'service_id')
-            ->where('props->flag', Flag::ADDITIONAL_PACKAGE);
-    }
-
-    public function additionalItems()
-    {
+    public function getViewResource(){return ViewService::class;}
+    public function getShowResource(){return ShowService::class;}
+    public function reference(){return $this->morphTo();}
+    public function serviceItem(){return $this->hasOneModel('ServiceItem', 'service_id');}
+    public function serviceItems(){return $this->hasManyModel('ServiceItem', 'service_id')->whereNull('parent_id')->with('childs');}
+    public function additionalItem(){return $this->hasOneModel('ServiceItem', 'service_id')->where('props->flag', Flag::ADDITIONAL_PACKAGE);}
+    public function additionalItems(){
         return $this->hasManyModel('ServiceItem', 'service_id')
             ->where('props->flag', Flag::ADDITIONAL_PACKAGE);
     }
 
-    public function paymentSummary()
-    {
-        return $this->morphOneModel('PaymentSummary', 'reference');
-    }
-
+    public function paymentSummary(){return $this->morphOneModel('PaymentSummary', 'reference');}
     public function hasService()
     {
         $service_table = $this->ServiceModel()->getTableName();
@@ -83,24 +61,9 @@ class Service extends BaseModel
             $this->ServiceModel()->getForeignKey()
         )->where($service_table . '.reference_type', $this->getMorphClass());
     }
-    public function modelHasService()
-    {
-        return $this->hasOneModel('ModelHasService', 'service_id');
-    }
-    public function servicePrice()
-    {
-        return $this->hasOneModel('ServicePrice', 'service_id');
-    }
-    public function servicePrices()
-    {
-        return $this->hasManyModel('ServicePrice', 'service_id');
-    }
-    public function priceComponent()
-    {
-        return $this->hasOneModel("PriceComponent", 'service_id');
-    }
-    public function priceComponents()
-    {
-        return $this->hasManyModel("PriceComponent", 'service_id');
-    }
+    public function modelHasService(){return $this->hasOneModel('ModelHasService', 'service_id');}
+    public function servicePrice(){return $this->hasOneModel('ServicePrice', 'service_id');}
+    public function servicePrices(){return $this->hasManyModel('ServicePrice', 'service_id');}
+    public function priceComponent(){return $this->hasOneModel("PriceComponent", 'service_id');}
+    public function priceComponents(){return $this->hasManyModel("PriceComponent", 'service_id');}
 }

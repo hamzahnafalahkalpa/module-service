@@ -2,10 +2,21 @@
 
 namespace Hanafalah\ModuleService\Contracts\Schemas;
 
-use Illuminate\Database\Eloquent\Collection;
 use Hanafalah\LaravelSupport\Contracts\Supports\DataManagement;
 
-interface ModelHasService extends DataManagement
-{
-    public function get(mixed $conditionals = null): Collection;
-}
+/**
+ * @see \Hanafalah\ModuleService\Schemas\ModelHasService
+ * @method self conditionals(mixed $conditionals)
+ * @method array storeModelHasService(?ModelHasServiceData $rab_work_list_dto = null)
+ * @method bool deleteModelHasService()
+ * @method bool prepareDeleteModelHasService(? array $attributes = null)
+ * @method mixed getModelHasService()
+ * @method ?Model prepareShowModelHasService(?Model $model = null, ?array $attributes = null)
+ * @method array showModelHasService(?Model $model = null)
+ * @method array viewModelHasServiceList()
+ * @method Collection prepareViewModelHasServiceList(? array $attributes = null)
+ * @method LengthAwarePaginator prepareViewModelHasServicePaginate(PaginateData $paginate_dto)
+ * @method array viewModelHasServicePaginate(?PaginateData $paginate_dto = null)
+ * @method Builder function modelHasService(mixed $conditionals = null)
+ */
+interface ModelHasService extends DataManagement{}
