@@ -1,23 +1,30 @@
 <?php
 
 use Hanafalah\ModuleService\{
-    Models as ModuleService,
-    Contracts
+    Commands
 };
 
 return [
+    'namespace' => 'Hanafalah\\ModuleService',
     'app' => [
         'contracts' => [
             //ADD YOUR CONTRACTS HERE
         ],
     ],
+    'libs' => [
+        'model' => 'Models',
+        'contract' => 'Contracts',
+        'schema' => 'Schemas',
+        'database' => 'Database',
+        'data' => 'Data',
+        'resource' => 'Resources',
+        'migration' => '../assets/database/migrations'
+    ],
     'database'   => [
         'models' => [
         ]
     ],
-    'libs' => [
-        'model' => 'Models',
-        'contract' => 'Contracts',
-        'schema' => 'Schemas'
+    'commands' => [
+        Commands\InstallMakeCommand::class
     ]
 ];
