@@ -32,16 +32,6 @@ class InstallMakeCommand extends EnvironmentCommand
         ]);
         $this->info('✔️  Created migrations');
 
-        $migrations = $this->setMigrationBasePath(database_path('migrations'))->canMigrate();
-        $this->callSilent('migrate', [
-            '--path' => $migrations
-        ]);
-
-        $this->callSilent('migrate', [
-            '--path' => $migrations
-        ]);
-        $this->info('✔️  Module Card Identities tables migrated');
-
         $this->comment('hanafalah/module-service installed successfully.');
     }
 }
