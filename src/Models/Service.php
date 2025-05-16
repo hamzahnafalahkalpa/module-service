@@ -9,13 +9,17 @@ use Hanafalah\ModuleService\Resources\ViewService;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Hanafalah\LaravelHasProps\Concerns\HasProps;
 use Hanafalah\LaravelSupport\Models\BaseModel;
+use Illuminate\Database\Eloquent\Concerns\HasUlids;
 
 class Service extends BaseModel
 {
-    use HasProps, SoftDeletes;
+    use HasUlids, HasProps, SoftDeletes;
 
-    protected $list = ['id', 'parent_id', 'name', 'status', 'reference_id', 'reference_type', 'props'];
-    protected $show = [];
+    public $incrementing  = false;
+    protected $primaryKey = 'id';
+    protected $keyType    = 'string';
+    protected $list       = ['id', 'parent_id', 'name', 'status', 'reference_id', 'reference_type', 'props'];
+    protected $show       = [];
 
     protected $casts = [
         'name' => 'string'
