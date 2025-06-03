@@ -14,8 +14,6 @@ class ViewServicePrice extends ApiResource
      */
     public function toArray($request): array
     {
-        $props = $this->getPropsData();
-
         $arr = [
             'id'                     => $this->id,
             'current'                => $this->current,
@@ -31,9 +29,6 @@ class ViewServicePrice extends ApiResource
             }),
             'price'                  => $this->price
         ];
-
-        foreach ($props as $key => $value) $arr[$key] = $value;
-        // Sort array by keys
         return $arr;
     }
 }

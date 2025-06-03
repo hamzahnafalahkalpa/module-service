@@ -7,15 +7,16 @@ use Hanafalah\ModuleService\Resources\ServicePrice\ViewServicePrice;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Hanafalah\LaravelHasProps\Concerns\HasProps;
 use Hanafalah\LaravelSupport\Models\BaseModel;
+use Illuminate\Database\Eloquent\Concerns\HasUlids;
 
 class ServicePrice extends BaseModel
 {
-    use HasProps, SoftDeletes;
-    protected $list               = ['id', 'parent_id', 'service_id', 'service_item_id', 'service_item_type', 'price', 'props'];
-    protected $show               = [];
-    // public array $current_conditions = [
-    //     'service_id','service_item_id','service_item_type'        
-    // ];
+    use HasUlids, HasProps, SoftDeletes;
+    public $incrementing = false;
+    protected $keyType = 'string';
+    protected $primaryKey = 'id';
+    protected $list = ['id', 'parent_id', 'service_id', 'service_item_id', 'service_item_type', 'price', 'props'];
+    protected $show = [];
 
     protected static function booted(): void
     {

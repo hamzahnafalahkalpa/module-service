@@ -19,8 +19,7 @@ class ShowServiceItem extends ViewServiceItem
                }),
                'service_price' => $this->relationValidation('servicePrice', function () {
                     return $this->servicePrice->toShowApi();
-               }),
-               'created_at' => $this->created_at
+               })
           ];
           $arr = $this->mergeArray(parent::toArray($request), $arr);
 
