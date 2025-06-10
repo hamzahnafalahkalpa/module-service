@@ -28,7 +28,7 @@ return new class extends Migration
             Schema::create($table_name, function (Blueprint $table) {
                 $service = app(config('database.models.Service', Service::class));
 
-                $table->id();
+                $table->ulid('id')->primary();
                 $table->foreignIdFor($service::class)
                     ->nullable()->index()
                     ->constrained($service->getTable(), $service->getKeyName(), 'sci_si')

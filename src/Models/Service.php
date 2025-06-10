@@ -9,13 +9,17 @@ use Hanafalah\ModuleService\Resources\ViewService;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Hanafalah\LaravelHasProps\Concerns\HasProps;
 use Hanafalah\LaravelSupport\Models\BaseModel;
+use Illuminate\Database\Eloquent\Concerns\HasUlids;
 
 class Service extends BaseModel
 {
-    use HasProps, SoftDeletes;
+    use HasUlids, HasProps, SoftDeletes;
 
-    protected $list = ['id', 'parent_id', 'name', 'status', 'reference_id', 'reference_type', 'props'];
-    protected $show = [];
+    public $incrementing  = false;
+    protected $primaryKey = 'id';
+    protected $keyType    = 'string';
+    protected $list       = ['id', 'parent_id', 'name', 'status', 'reference_id', 'reference_type', 'props'];
+    protected $show       = [];
 
     protected $casts = [
         'name' => 'string'
@@ -29,48 +33,26 @@ class Service extends BaseModel
         });
     }
 
-    public function toViewApi()
-    {
-        return new ViewService($this);
+    public function viewUsingRelation(): array{
+        return ['reference'];
     }
 
-    public function toShowApi()
-    {
-        return new ShowService($this);
+    public function viewUsingRelations(): array{
+        return ['reference'];
     }
 
-    public function reference()
-    {
-        return $this->morphTo();
-    }
-
-    public function serviceItem()
-    {
-        return $this->hasOneModel('ServiceItem', 'service_id');
-    }
-
-    public function serviceItems()
-    {
-        return $this->hasManyModel('ServiceItem', 'service_id')->whereNull('parent_id')->with('childs');
-    }
-
-    public function additionalItem()
-    {
-        return $this->hasOneModel('ServiceItem', 'service_id')
-            ->where('props->flag', Flag::ADDITIONAL_PACKAGE);
-    }
-
-    public function additionalItems()
-    {
+    public function getViewResource(){return ViewService::class;}
+    public function getShowResource(){return ShowService::class;}
+    public function reference(){return $this->morphTo();}
+    public function serviceItem(){return $this->hasOneModel('ServiceItem', 'service_id');}
+    public function serviceItems(){return $this->hasManyModel('ServiceItem', 'service_id')->whereNull('parent_id')->with('childs');}
+    public function additionalItem(){return $this->hasOneModel('ServiceItem', 'service_id')->where('props->flag', Flag::ADDITIONAL_PACKAGE);}
+    public function additionalItems(){
         return $this->hasManyModel('ServiceItem', 'service_id')
             ->where('props->flag', Flag::ADDITIONAL_PACKAGE);
     }
 
-    public function paymentSummary()
-    {
-        return $this->morphOneModel('PaymentSummary', 'reference');
-    }
-
+    public function paymentSummary(){return $this->morphOneModel('PaymentSummary', 'reference');}
     public function hasService()
     {
         $service_table = $this->ServiceModel()->getTableName();
@@ -83,24 +65,9 @@ class Service extends BaseModel
             $this->ServiceModel()->getForeignKey()
         )->where($service_table . '.reference_type', $this->getMorphClass());
     }
-    public function modelHasService()
-    {
-        return $this->hasOneModel('ModelHasService', 'service_id');
-    }
-    public function servicePrice()
-    {
-        return $this->hasOneModel('ServicePrice', 'service_id');
-    }
-    public function servicePrices()
-    {
-        return $this->hasManyModel('ServicePrice', 'service_id');
-    }
-    public function priceComponent()
-    {
-        return $this->hasOneModel("PriceComponent", 'service_id');
-    }
-    public function priceComponents()
-    {
-        return $this->hasManyModel("PriceComponent", 'service_id');
-    }
+    public function modelHasService(){return $this->hasOneModel('ModelHasService', 'service_id');}
+    public function servicePrice(){return $this->hasOneModel('ServicePrice', 'service_id');}
+    public function servicePrices(){return $this->hasManyModel('ServicePrice', 'service_id');}
+    public function priceComponent(){return $this->hasOneModel("PriceComponent", 'service_id');}
+    public function priceComponents(){return $this->hasManyModel("PriceComponent", 'service_id');}
 }

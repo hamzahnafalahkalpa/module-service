@@ -6,24 +6,15 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
 use Hanafalah\ModuleService\Contracts\Schemas\ServiceItem as ContractServiceItem;
-use Hanafalah\ModuleService\Resources\ServiceItem\ViewServiceItem;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Hanafalah\LaravelSupport\Supports\PackageManagement;
 
 class ServiceItem extends PackageManagement implements ContractServiceItem
 {
-    protected array $__guard   = ['id', 'reference_id'];
-    protected array $__add     = ["parent_id", "reference_type", 'flag'];
     protected string $__entity = 'ServiceItem';
     public static $service_item_model;
 
-    protected array $__resources = [
-        'view' => ViewServiceItem::class,
-        'show' => ViewServiceItem::class
-    ];
-
-    public function prepareStoreServiceItem(?array $attributes = null): Model
-    {
+    public function prepareStoreServiceItem(?array $attributes = null): Model{
         $attributes ??= request()->all();
 
         if (!isset($attributes['service_id'])) throw new \Exception('service_id is required');
@@ -61,46 +52,6 @@ class ServiceItem extends PackageManagement implements ContractServiceItem
         $service_price = $service_price_schema->prepareStoreServicePrice($attributes['service_price']);
         return static::$service_item_model = $model;
     }
-
-    public function storeServiceItem(): array
-    {
-        return $this->transaction(function () {
-            return $this->showServiceItem($this->prepareStoreServiceItem());
-        });
-    }
-
-    public function prepareShowServiceItem(?Model $model = null, ?array $attributes = null): Model
-    {
-        $attributes ??= request()->all();
-
-        $model ??= $this->getServiceItem();
-        if (!isset($model)) {
-            $id = $attributes['id'] ?? null;
-            if (!isset($id)) throw new \Exception('id is required');
-
-            $model = $this->ServiceItemModel()->with($this->showUsingRelation())->findOrFail($id);
-        } else {
-            $model->load($this->showUsingRelation());
-        }
-
-        return static::$service_item_model = $model;
-    }
-
-    public function showServiceItem(?Model $model = null): array
-    {
-        return $this->transforming($this->__resources['show'], function () use ($model) {
-            return $this->prepareShowServiceItem($model);
-        });
-    }
-
-    public function showUsingRelation(): array
-    {
-        return [
-            'item',
-            'childs'
-        ];
-    }
-
 
     public function prepareViewServiceItemList(?array $attributes = null): array
     {
