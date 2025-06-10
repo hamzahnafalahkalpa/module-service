@@ -31,8 +31,7 @@ return new class extends Migration
                 $table->string("name");
                 $table->string("reference_id", 36);
                 $table->string('reference_type', 50);
-                $table->unsignedTinyInteger('status')
-                    ->default(Status::ACTIVE->value)->nullable(false);
+                $table->string('status')->default(Status::ACTIVE->value)->nullable(false);
                 $table->json('props')->nullable();
                 $table->timestamps();
                 $table->softDeletes();
