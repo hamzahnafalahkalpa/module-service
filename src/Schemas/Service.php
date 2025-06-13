@@ -14,7 +14,7 @@ class Service extends PackageManagement implements ContractsService
         'index' => [
             'name'     => 'service',
             'tags'     => ['service', 'service-index'],
-            'forever'  => true
+            'duration' => 24*60
         ]
     ];
 }
