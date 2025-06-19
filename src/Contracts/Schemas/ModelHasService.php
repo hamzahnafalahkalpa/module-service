@@ -6,6 +6,7 @@ use Hanafalah\LaravelSupport\Contracts\Supports\DataManagement;
 
 /**
  * @see \Hanafalah\ModuleService\Schemas\ModelHasService
+ * @method self setParamLogic(string $logic, bool $search_value = false, ?array $optionals = [])
  * @method self conditionals(mixed $conditionals)
  * @method array storeModelHasService(?ModelHasServiceData $rab_work_list_dto = null)
  * @method bool deleteModelHasService()

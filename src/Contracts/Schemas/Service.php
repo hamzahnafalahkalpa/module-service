@@ -6,6 +6,7 @@ use Hanafalah\LaravelSupport\Contracts\Supports\DataManagement;
 
 /**
  * @see \Hanafalah\ModuleService\Schemas\Service
+ * @method self setParamLogic(string $logic, bool $search_value = false, ?array $optionals = [])
  * @method self conditionals(mixed $conditionals)
  * @method mixed getService()
  * @method ?Model prepareShowService(?Model $model = null, ?array $attributes = null)
