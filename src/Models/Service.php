@@ -18,15 +18,17 @@ class Service extends BaseModel
     public $incrementing  = false;
     protected $primaryKey = 'id';
     protected $keyType    = 'string';
-    protected $list       = ['id', 'parent_id', 'name', 'status', 'reference_id', 'reference_type', 'props'];
+    protected $list       = [
+        'id', 'parent_id', 'name', 'status', 
+        'reference_id', 'reference_type', 'props'
+    ];
     protected $show       = [];
 
     protected $casts = [
         'name' => 'string'
     ];
 
-    protected static function booted(): void
-    {
+    protected static function booted(): void{
         parent::booted();
         static::creating(function ($query) {
             if (!isset($query->status)) $query->status = Status::ACTIVE->value;

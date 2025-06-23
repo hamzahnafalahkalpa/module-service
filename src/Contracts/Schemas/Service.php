@@ -17,6 +17,4 @@ use Hanafalah\LaravelSupport\Contracts\Supports\DataManagement;
  * @method array viewServicePaginate(?PaginateData $paginate_dto = null)
  * @method Builder function service(mixed $conditionals = null)
  */
-interface Service extends DataManagement
-{
-}
+interface Service extends DataManagement{}

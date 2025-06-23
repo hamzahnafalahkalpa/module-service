@@ -21,7 +21,6 @@ trait HasService
                 ], [
                     'name' => $query->name
                 ]);
-    
                 if (isset($query->service_code)) {
                     $service->service_code = $query->service_code;
                     // $service->price        = request()->price;
