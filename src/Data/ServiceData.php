@@ -41,4 +41,16 @@ class ServiceData extends Data implements DataServiceData{
     #[MapInputName('props')]
     #[MapName('props')]
     public ?array $props = [];
+
+    public static function after(self $data): self{
+        $new = static::new();
+        $props = &$data->props;
+
+        $reference = $new->{$data->reference_type.'Model'}();
+        $reference = (isset($data->reference_id)) ? $reference->findOrFail($data->reference_id) : $reference;
+        $props['prop_reference'] = $reference->toViewApi()->only([
+            'id','name','flag','label'
+        ]);
+        return $data;
+    }
 }

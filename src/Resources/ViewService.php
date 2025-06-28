@@ -20,10 +20,10 @@ class ViewService extends ApiResource
     $arr = [
       'id'             => $this->id,
       'name'           => $this->name,
-      "status"         => $this->status,
       "reference_id"   => $this->reference_id,
       "reference_type" => $this->reference_type,
-      "status_spell"   => ($this->status) ? "Active" : "Inactive",
+      "reference"      => $this->prop_reference,
+      "status"         => $this->status,
       "price"          => isset($this->price) ? $this->price : 0,
       'margin'         => $this->margin ?? 0,
       'service_items'  => $this->relationValidation('serviceItems', function () {
@@ -41,9 +41,6 @@ class ViewService extends ApiResource
           return $price->toViewApi();
         });
       }),
-      "reference"      => $this->relationValidation("reference", function () {
-        return $this->reference->toViewApi();
-      }),
       "childs"         => $this->relationValidation("childs", function () {
         return $this->childs->transform(function ($child) {
           return $child->toViewApi();
@@ -52,14 +49,6 @@ class ViewService extends ApiResource
       'created_at' => $this->created_at,
       'updated_at' => $this->updated_at
     ];
-    $props = $this->getPropsData();
-    if (isset($props) && count($props) > 0) {
-      foreach ($props as $key => $prop) {
-        if ($key == 'price') continue;
-        $arr[$key] = $prop;
-      }
-    }
-
     return $arr;
   }
 }

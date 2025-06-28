@@ -25,7 +25,8 @@ class Service extends BaseModel
     protected $show       = [];
 
     protected $casts = [
-        'name' => 'string'
+        'name' => 'string',
+        'reference_type' => 'string'
     ];
 
     protected static function booted(): void{

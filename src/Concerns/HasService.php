@@ -2,8 +2,12 @@
 
 namespace Hanafalah\ModuleService\Concerns;
 
+use Hanafalah\LaravelSupport\Concerns\Support\HasRequestData;
+
 trait HasService
 {
+    use HasRequestData;
+
     protected $__foreign_key = 'service_id';
 
     protected static function bootHasService()
@@ -13,14 +17,14 @@ trait HasService
                 $service_parent = static::parentService($query->parent_id);
                 $parent_id = null;
                 if ($service_parent) $parent_id = $service_parent->getKey();
-    
-                $service = $query->service()->updateOrCreate([
-                    'parent_id'      => $parent_id,
-                    "reference_id"   => $query->id,
-                    "reference_type" => $query->getMorphClass()
-                ], [
-                    'name' => $query->name
-                ]);
+                $service = app(config('app.contracts.Service'))->prepareStoreService(
+                    $query->requestDTO(config('app.contracts.ServiceData'),[
+                        'parent_id'      => $parent_id,
+                        "reference_id"   => $query->id,
+                        "reference_type" => $query->getMorphClass(),
+                        'name' => $query->name
+                    ])
+                );
                 if (isset($query->service_code)) {
                     $service->service_code = $query->service_code;
                     // $service->price        = request()->price;

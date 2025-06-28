@@ -4,6 +4,8 @@ namespace Hanafalah\ModuleService\Schemas;
 
 use Hanafalah\ModuleService\Contracts\Schemas\Service as ContractsService;
 use Hanafalah\LaravelSupport\Supports\PackageManagement;
+use Hanafalah\ModuleService\Contracts\Data\ServiceData;
+use Illuminate\Database\Eloquent\Model;
 
 class Service extends PackageManagement implements ContractsService
 {
@@ -17,4 +19,26 @@ class Service extends PackageManagement implements ContractsService
             'duration' => 24*60
         ]
     ];
+
+    public function prepareStoreService(ServiceData $service_dto): Model{
+        $add = [
+            'parent_id' => $service_dto->parent_id,
+            'name' => $service_dto->name
+        ];
+        if (isset($service_dto->id)){
+            $guard = ['id' => $service_dto->id];
+            $create = [$guard];
+        }else{
+            $guard = [
+                'reference_type' => $service_dto->reference_type,
+                'reference_id' => $service_dto->reference_id,
+            ];
+            $create = [$guard, $add];
+        }
+
+        $model = $this->usingEntity()->updateOrCreate(...$create);
+        $this->fillingProps($model,$service_dto->props);
+        $model->save();
+        return static::$service_model = $model;
+    }
 }
