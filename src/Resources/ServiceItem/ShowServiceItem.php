@@ -10,15 +10,15 @@ class ShowServiceItem extends ViewServiceItem
      {
           $arr = [
                'reference'  => $this->relationValidation('reference', function () {
-                    return $this->reference->toShowApi();
+                    return $this->reference->toShowApi()->resolve();
                }),
                'childs'     => $this->relationValidation('childs', function () {
                     return $this->childs->transform(function ($child) {
-                         return $child->toShowApi();
+                         return $child->toShowApi()->resolve();
                     });
                }),
                'service_price' => $this->relationValidation('servicePrice', function () {
-                    return $this->servicePrice->toShowApi();
+                    return $this->servicePrice->toShowApi()->resolve();
                })
           ];
           $arr = $this->mergeArray(parent::toArray($request), $arr);

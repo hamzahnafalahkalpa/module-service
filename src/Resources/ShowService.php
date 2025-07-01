@@ -12,17 +12,17 @@ class ShowService extends ViewService
     $arr = [
       'service_items'  => $this->relationValidation('serviceItems', function () {
         return $this->serviceItems->transform(function ($item) {
-          return $item->toShowApi();
+          return $item->toShowApi()->resolve();
         });
       }),
       'service_prices' => $this->relationValidation('servicePrices', function () {
         return $this->servicePrices->transform(function ($price) {
-          return $price->toShowApi();
+          return $price->toShowApi()->resolve();
         });
       }),
       'price_components' => $this->relationValidation('priceComponents', function () {
         return $this->priceComponents->transform(function ($price) {
-          return $price->toShowApi();
+          return $price->toShowApi()->resolve();
         });
       }),
       'childs'         => $this->relationValidation('childs', function () {

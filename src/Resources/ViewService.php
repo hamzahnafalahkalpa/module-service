@@ -28,22 +28,22 @@ class ViewService extends ApiResource
       'margin'         => $this->margin ?? 0,
       'service_items'  => $this->relationValidation('serviceItems', function () {
         return $this->serviceItems->transform(function ($item) {
-          return $item->toViewApi();
+          return $item->toViewApi()->resolve();
         });
       }),
       'service_prices' => $this->relationValidation('servicePrices', function () {
         return $this->servicePrices->transform(function ($price) {
-          return $price->toViewApi();
+          return $price->toViewApi()->resolve();
         });
       }),
       'price_components' => $this->relationValidation('priceComponents', function () {
         return $this->priceComponents->transform(function ($price) {
-          return $price->toViewApi();
+          return $price->toViewApi()->resolve();
         });
       }),
       "childs"         => $this->relationValidation("childs", function () {
         return $this->childs->transform(function ($child) {
-          return $child->toViewApi();
+          return $child->toViewApi()->resolve();
         });
       }),
       'created_at' => $this->created_at,
