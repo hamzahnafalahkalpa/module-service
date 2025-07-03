@@ -38,6 +38,11 @@ class ServiceData extends Data implements DataServiceData{
     #[DataCollectionOf(ServiceData::class)]
     public ?array $childs = [];
 
+    #[MapInputName('service_prices')]
+    #[MapName('service_prices')]
+    #[DataCollectionOf(ServicePriceData::class)]
+    public ?array $service_prices = null;
+
     #[MapInputName('props')]
     #[MapName('props')]
     public ?array $props = [];
@@ -46,11 +51,13 @@ class ServiceData extends Data implements DataServiceData{
         $new = static::new();
         $props = &$data->props;
 
-        $reference = $new->{$data->reference_type.'Model'}();
-        $reference = (isset($data->reference_id)) ? $reference->findOrFail($data->reference_id) : $reference;
-        $props['prop_reference'] = $reference->toViewApi()->only([
-            'id','name','flag','label'
-        ]);
+        if (isset($data->reference_type) && isset($data->reference_id)){
+            $reference = $new->{$data->reference_type.'Model'}();
+            $reference = (isset($data->reference_id)) ? $reference->findOrFail($data->reference_id) : $reference;
+            $props['prop_reference'] = $reference->toViewApi()->only([
+                'id','name','flag','label'
+            ]);
+        }
         return $data;
     }
 }
