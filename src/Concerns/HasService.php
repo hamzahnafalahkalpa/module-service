@@ -58,7 +58,8 @@ trait HasService
     }
 
     protected function isUsingService(): bool{
-        return true;
+        $configs = config('module-service.is_using_services',[]);
+        return in_array($this->getMorphClass(), $configs);
     }
 
     protected static function parentService($parent_id)

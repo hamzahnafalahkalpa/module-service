@@ -19,5 +19,8 @@ return [
         'model' => 'Models',
         'contract' => 'Contracts',
         'schema' => 'Schemas'
+    ],
+    'is_using_services' => [
+        //ADD YOUR MODEL NAME HERE
     ]
 ];

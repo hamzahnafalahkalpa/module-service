@@ -32,8 +32,12 @@ class Service extends BaseModel
     protected static function booted(): void{
         parent::booted();
         static::creating(function ($query) {
-            if (!isset($query->status)) $query->status = Status::ACTIVE->value;
+            $query->status ??= self::getStatus(Status::ACTIVE->value);
         });
+    }
+
+    public static function getStatus(string $status){
+        return Status::from($status)->value;
     }
 
     public function viewUsingRelation(): array{
