@@ -29,27 +29,24 @@ class ServiceItem extends BaseModel
     ];
     protected $show       = [];
 
-    public function toViewApi()
-    {
-        return new ViewServiceItem($this);
+    public function showUsingRelation(): array{
+        return [
+            'item',
+            'childs'
+        ];
     }
 
-    public function toShowApi()
-    {
-        return new ShowServiceItem($this);
+
+    public function getViewResource(){
+        return ViewServiceItem::class;
+    }
+
+    public function getShowResource(){
+        return ShowServiceItem::class;
     }
 
     //END EIGER SECTION
-    public function reference()
-    {
-        return $this->morphTo();
-    }
-    public function service()
-    {
-        return $this->morphOneModel('Service', 'reference');
-    }
-    public function childs()
-    {
-        return $this->hasManyModel('ServiceItem', 'parent_id', 'id')->with('childs');
-    }
+    public function reference(){return $this->morphTo();}
+    public function service(){return $this->morphOneModel('Service', 'reference');}
+    public function childs(){return $this->hasManyModel('ServiceItem', 'parent_id', 'id')->with('childs');}
 }

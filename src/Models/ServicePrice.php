@@ -7,30 +7,26 @@ use Hanafalah\ModuleService\Resources\ServicePrice\ViewServicePrice;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Hanafalah\LaravelHasProps\Concerns\HasProps;
 use Hanafalah\LaravelSupport\Models\BaseModel;
+use Illuminate\Database\Eloquent\Concerns\HasUlids;
 
 class ServicePrice extends BaseModel
 {
-    use HasProps, SoftDeletes;
-    protected $list               = ['id', 'parent_id', 'service_id', 'service_item_id', 'service_item_type', 'price', 'props'];
-    protected $show               = [];
-    // public array $current_conditions = [
-    //     'service_id','service_item_id','service_item_type'        
-    // ];
+    use HasUlids, HasProps, SoftDeletes;
+    
+    public $incrementing = false;
+    protected $keyType = 'string';
+    protected $primaryKey = 'id';
+    protected $list = [
+        'id', 'parent_id', 'service_id', 'service_item_id', 'service_item_type', 
+        'price', 'cogs', 'margin' , 'tax', 'props'
+    ];
+    protected $show = [];
 
     protected static function booted(): void
     {
         parent::booted();
         static::creating(function ($query) {
-            if (!isset($query->price)) $query->price = 0;
-        });
-        static::created(function ($query) {
-            // static::withoutEvents(function() use ($query){
-            //     $service = $query->service;
-            //     if (isset($service)){
-            //         $service->price += $query->price;
-            //         $service->save();
-            //     }
-            // });
+            $query->price ??= 0;
         });
         static::updated(function ($query) {
             if ($query->isDirty('deleted_at')) {
@@ -39,23 +35,8 @@ class ServicePrice extends BaseModel
         });
     }
 
-    public function toViewApi()
-    {
-        return new ViewServicePrice($this);
-    }
-
-    public function toShowApi()
-    {
-        return new ShowServicePrice($this);
-    }
-
-    //EIGER SECTION
-    public function service()
-    {
-        return $this->belongsToModel('Service');
-    }
-    public function serviceItem()
-    {
-        return $this->morphTo();
-    }
+    public function getViewResource(){return ViewServicePrice::class;}
+    public function getShowResource(){return ShowServicePrice::class;}
+    public function service(){return $this->belongsToModel('Service');}
+    public function serviceItem(){return $this->morphTo();}
 }

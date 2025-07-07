@@ -14,26 +14,23 @@ class ViewServicePrice extends ApiResource
      */
     public function toArray($request): array
     {
-        $props = $this->getPropsData();
-
         $arr = [
             'id'                     => $this->id,
             'current'                => $this->current,
             'parent_id'              => $this->parent_id,
             'service_id'             => $this->service_id,
             'service'                => $this->relationValidation('service', function () {
-                return $this->service->toViewApi();
+                return $this->service->toViewApi()->resolve();
             }),
             'service_item_id'        => $this->service_item_id,
             'service_item_type'      => $this->service_item_type,
             'service_item'           => $this->relationValidation('serviceItem', function () {
-                return $this->serviceItem->toViewApi();
+                return $this->serviceItem->toViewApi()->resolve();
             }),
-            'price'                  => $this->price
+            'price'                  => $this->price,
+            'cogs'                   => $this->cogs,
+            'margin'                 => $this->margin
         ];
-
-        foreach ($props as $key => $value) $arr[$key] = $value;
-        // Sort array by keys
         return $arr;
     }
 }

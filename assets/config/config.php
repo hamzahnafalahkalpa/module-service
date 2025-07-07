@@ -26,5 +26,8 @@ return [
     ],
     'commands' => [
         Commands\InstallMakeCommand::class
+    ],
+    'is_using_services' => [
+        //ADD YOUR MODEL NAME HERE
     ]
 ];

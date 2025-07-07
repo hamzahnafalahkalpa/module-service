@@ -16,10 +16,10 @@ class ShowServicePrice extends ApiResource
     {
         $arr = [
             'service'                => $this->relationValidation('service', function () {
-                return $this->service->toShowApi();
+                return $this->service->toShowApi()->resolve();
             }),
             'service_item'           => $this->relationValidation('serviceItem', function () {
-                return $this->serviceItem->toShowApi();
+                return $this->serviceItem->toShowApi()->resolve();
             })
         ];
         $arr = $this->mergeArray(parent::toArray($request), $arr);

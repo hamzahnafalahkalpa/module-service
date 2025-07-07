@@ -2,19 +2,22 @@
 
 namespace Hanafalah\ModuleService\Contracts\Schemas;
 
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 use Hanafalah\LaravelSupport\Contracts\Supports\DataManagement;
 
-interface ServicePrice extends DataManagement
-{
-    public function prepareStoreServicePrice(?array $attributes = null): Model;
-    public function storeServicePrice(): array;
-    public function showUsingRelation(): array;
-    public function prepareShowServicePrice(?Model $model = null, array $attributes = null): Model;
-    public function getServicePrice(): mixed;
-    public function showServicePrice(?Model $model = null): array;
-    public function prepareDeleteServicePrice(?array $attributes = null): bool;
-    public function deleteServicePrice(): bool;
-    public function servicePrice($conditionals = []): Builder;
-}
+/**
+ * @see \Hanafalah\ModuleService\Schemas\ServicePrice
+ * @method self setParamLogic(string $logic, bool $search_value = false, ?array $optionals = [])
+ * @method self conditionals(mixed $conditionals)
+ * @method array storeServicePrice(?ServicePriceData $rab_work_list_dto = null)
+ * @method bool deleteServicePrice()
+ * @method bool prepareDeleteServicePrice(? array $attributes = null)
+ * @method mixed getServicePrice()
+ * @method ?Model prepareShowServicePrice(?Model $model = null, ?array $attributes = null)
+ * @method array showServicePrice(?Model $model = null)
+ * @method array viewServicePriceList()
+ * @method Collection prepareViewServicePriceList(? array $attributes = null)
+ * @method LengthAwarePaginator prepareViewServicePricePaginate(PaginateData $paginate_dto)
+ * @method array viewServicePricePaginate(?PaginateData $paginate_dto = null)
+ * @method Builder function servicePrice(mixed $conditionals = null)
+ */
+interface ServicePrice extends DataManagement{}
