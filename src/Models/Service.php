@@ -20,7 +20,8 @@ class Service extends BaseModel
     protected $keyType    = 'string';
     protected $list       = [
         'id', 'parent_id', 'name', 'status', 
-        'reference_id', 'reference_type', 'props'
+        'reference_id', 'reference_type', 'price',
+        'cogs', 'margin', 'props'
     ];
     protected $show       = [];
 
@@ -60,8 +61,7 @@ class Service extends BaseModel
     }
 
     public function paymentSummary(){return $this->morphOneModel('PaymentSummary', 'reference');}
-    public function hasService()
-    {
+    public function hasService(){
         $service_table = $this->ServiceModel()->getTableName();
         return $this->hasOneThroughModel(
             'Service',
@@ -75,6 +75,4 @@ class Service extends BaseModel
     public function modelHasService(){return $this->hasOneModel('ModelHasService', 'service_id');}
     public function servicePrice(){return $this->hasOneModel('ServicePrice', 'service_id');}
     public function servicePrices(){return $this->hasManyModel('ServicePrice', 'service_id');}
-    public function priceComponent(){return $this->hasOneModel("PriceComponent", 'service_id');}
-    public function priceComponents(){return $this->hasManyModel("PriceComponent", 'service_id');}
 }

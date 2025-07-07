@@ -27,7 +27,9 @@ class ViewServicePrice extends ApiResource
             'service_item'           => $this->relationValidation('serviceItem', function () {
                 return $this->serviceItem->toViewApi()->resolve();
             }),
-            'price'                  => $this->price
+            'price'                  => $this->price,
+            'cogs'                   => $this->cogs,
+            'margin'                 => $this->margin
         ];
         return $arr;
     }

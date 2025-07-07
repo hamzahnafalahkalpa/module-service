@@ -39,7 +39,7 @@ class ServicePriceData extends Data implements DataServicePriceData{
 
     #[MapInputName('price')]
     #[MapName('price')]
-    public ?int $price = 0;
+    public ?int $price = null;
 
     #[MapInputName('tax')]
     #[MapName('tax')]
@@ -56,19 +56,14 @@ class ServicePriceData extends Data implements DataServicePriceData{
     public static function after(self $data): self{
         $new = static::new();
         $props = &$data->props;
-        
-        if (!isset($data->service_id)){
-            $reference = $new->{$data->service_item_type.'Model'}()->findOrFail($data->service_item_id);
-            $data->service_id = $reference->service->id;
-        }
-
-        $data->price ??= $new->calculatePrice();
+        $data->price ??= $new->calculatePrice($data);
         return $data;
     }
 
-    private function calculatePrice(){
-        $price = $this->cogs + $this->cogs * $this->margin/100;
-        $this->props['total_tax'] = $price * $this->tax/100;
+    private function calculatePrice($data){
+        $price = &$data->price;
+        $price = $data->cogs + $data->cogs * $data->margin/100;
+        $data->props['total_tax'] = $price * $data->tax/100;
         return $price;
     }
 }

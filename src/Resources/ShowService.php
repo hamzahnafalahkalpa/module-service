@@ -15,16 +15,6 @@ class ShowService extends ViewService
           return $item->toShowApi()->resolve();
         });
       }),
-      'service_prices' => $this->relationValidation('servicePrices', function () {
-        return $this->servicePrices->transform(function ($price) {
-          return $price->toShowApi()->resolve();
-        });
-      }),
-      'price_components' => $this->relationValidation('priceComponents', function () {
-        return $this->priceComponents->transform(function ($price) {
-          return $price->toShowApi()->resolve();
-        });
-      }),
       'childs'         => $this->relationValidation('childs', function () {
         $childs = $this->childs;
         return $childs->transform(function ($child) {

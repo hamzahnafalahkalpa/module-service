@@ -24,8 +24,9 @@ class ViewService extends ApiResource
       "reference_type" => $this->reference_type,
       "reference"      => $this->prop_reference,
       "status"         => $this->status,
-      "price"          => isset($this->price) ? $this->price : 0,
-      'margin'         => $this->margin ?? 0,
+      "price"          => $this->price,
+      "cogs"           => $this->cogs,
+      "margin"         => $this->margin,
       'service_items'  => $this->relationValidation('serviceItems', function () {
         return $this->serviceItems->transform(function ($item) {
           return $item->toViewApi()->resolve();
@@ -33,12 +34,7 @@ class ViewService extends ApiResource
       }),
       'service_prices' => $this->relationValidation('servicePrices', function () {
         return $this->servicePrices->transform(function ($price) {
-          return $price->toViewApi()->resolve();
-        });
-      }),
-      'price_components' => $this->relationValidation('priceComponents', function () {
-        return $this->priceComponents->transform(function ($price) {
-          return $price->toViewApi()->resolve();
+          return $price->toViewApi();
         });
       }),
       "childs"         => $this->relationValidation("childs", function () {

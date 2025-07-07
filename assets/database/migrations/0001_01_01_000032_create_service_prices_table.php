@@ -40,10 +40,10 @@ return new class extends Migration
                 $table->foreignIdFor($tariff_component::class)
                     ->nullable()->index()
                     ->constrained()->cascadeOnUpdate()->restrictOnDelete();
-                $table->unsignedBigInteger('price');
-                $table->unsignedBigInteger('cogs');
-                $table->unsignedSmallInteger('tax');
-                $table->unsignedSmallInteger('margin');
+                $table->unsignedBigInteger('price')->default(0);
+                $table->unsignedBigInteger('cogs')->default(0);
+                $table->unsignedSmallInteger('tax')->default(0);
+                $table->unsignedSmallInteger('margin')->default(0);
                 $table->json('props')->nullable();
                 $table->timestamps();
                 $table->softDeletes();
