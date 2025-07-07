@@ -26,7 +26,7 @@ class Service extends PackageManagement implements ContractsService
             'name'      => $service_dto->name,
             'price'     => $service_dto->price,
             'margin'    => $service_dto->margin,
-            'cogs'     => $service_dto->cogs
+            'cogs'      => $service_dto->cogs
         ];
         if (isset($service_dto->id)){
             $guard = ['id' => $service_dto->id];
@@ -48,7 +48,7 @@ class Service extends PackageManagement implements ContractsService
                 $model->cogs              += $service_price->cogs;
             }
         }
-        $model->margin ??= ($model->price - $model->cogs) / $model->price * 100;
+        $model->margin = ($model->price - $model->cogs)* 100/ $model->cogs ;
         $this->fillingProps($model,$service_dto->props);
         $model->save();
         return static::$service_model = $model;

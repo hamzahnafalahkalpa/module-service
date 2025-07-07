@@ -34,7 +34,7 @@ return new class extends Migration
                 $table->string('status')->default(Status::ACTIVE->value)->nullable(false);
                 $table->unsignedBigInteger('price')->default(0)->nullable(false);
                 $table->unsignedBigInteger('cogs')->default(0)->nullable(false);
-                $table->unsignedSmallInteger('margin')->default(0)->nullable(false);
+                $table->decimal('margin',10,2)->default(0)->nullable(false);
                 $table->json('props')->nullable();
                 $table->timestamps();
                 $table->softDeletes();
