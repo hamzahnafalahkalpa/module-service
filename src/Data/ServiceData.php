@@ -33,6 +33,10 @@ class ServiceData extends Data implements DataServiceData{
     #[MapName('reference_id')]
     public mixed $reference_id = null;
 
+    #[MapInputName('service_label_id')]
+    #[MapName('service_label_id')]
+    public mixed $service_label_id = null;
+
     #[MapInputName('price')]
     #[MapName('price')]
     public ?int $price = 0;
@@ -43,7 +47,7 @@ class ServiceData extends Data implements DataServiceData{
 
     #[MapInputName('margin')]
     #[MapName('margin')]
-    public ?int $margin = 0;
+    public ?float $margin = 0;
 
     #[MapInputName('childs')]
     #[MapName('childs')]
@@ -73,6 +77,10 @@ class ServiceData extends Data implements DataServiceData{
                 'id','name','flag','label'
             ]);
         }
+
+        $service_label = $new->ServiceLabelModel();
+        if (isset($data->service_label_id)) $service_label = $service_label->findOrFail($data->service_label_id);
+        $props['prop_service_label'] = $service_label->toViewApi()->resolve();
         return $data;
     }
 }

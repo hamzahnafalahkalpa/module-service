@@ -16,7 +16,7 @@ class ServicePrice extends PackageManagement implements ContractServicePrice
         $add = [
             'price' => $service_price_dto->price,
             'cogs' => $service_price_dto->cogs,
-            'margin' => $service_price_dto->margin
+            'margin' => floatval($service_price_dto->margin)
         ];
         if (isset($service_price_dto->id)) {
             $guard = ['id' => $service_price_dto->id];

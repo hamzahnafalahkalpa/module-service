@@ -22,6 +22,7 @@ class Service extends PackageManagement implements ContractsService
 
     public function prepareStoreService(ServiceData $service_dto): Model{
         $add = [
+            'service_label_id' => $service_dto->service_label_id,
             'parent_id' => $service_dto->parent_id,
             'name'      => $service_dto->name,
             'price'     => $service_dto->price,
@@ -42,13 +43,17 @@ class Service extends PackageManagement implements ContractsService
         $model = $this->usingEntity()->updateOrCreate(...$create);
         if (isset($service_dto->service_prices) && count($service_dto->service_prices) > 0) {
             foreach ($service_dto->service_prices as $service_price) {
-                $service_price->service_id = $service_dto->id;
+                $service_price->service_id = $model->getKey();
                 $service_price             = $this->schemaContract('service_price')->prepareStoreServicePrice($service_price);
                 $model->price             += $service_price->price;
                 $model->cogs              += $service_price->cogs;
             }
         }
-        $model->margin = ($model->price - $model->cogs)* 100/ $model->cogs ;
+        if ($model->cogs > 0){
+            $model->margin = floatval(($model->price - $model->cogs)* 100/ $model->cogs);
+        }else{
+            $model->margin = 0;
+        }
         $this->fillingProps($model,$service_dto->props);
         $model->save();
         return static::$service_model = $model;

@@ -31,21 +31,14 @@ class ServiceItem extends BaseModel
 
     public function showUsingRelation(): array{
         return [
-            'item',
+            'reference',
             'childs'
         ];
     }
 
 
-    public function getViewResource(){
-        return ViewServiceItem::class;
-    }
-
-    public function getShowResource(){
-        return ShowServiceItem::class;
-    }
-
-    //END EIGER SECTION
+    public function getViewResource(){return ViewServiceItem::class;}
+    public function getShowResource(){return ShowServiceItem::class;}
     public function reference(){return $this->morphTo();}
     public function service(){return $this->morphOneModel('Service', 'reference');}
     public function childs(){return $this->hasManyModel('ServiceItem', 'parent_id', 'id')->with('childs');}
