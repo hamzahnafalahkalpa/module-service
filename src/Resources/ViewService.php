@@ -14,9 +14,6 @@ class ViewService extends ApiResource
    */
   public function toArray(\Illuminate\Http\Request $request): array
   {
-    if ($request->has('is_recursive')) {
-      $this->load("childs");
-    }
     $arr = [
       'id'             => $this->id,
       'name'           => $this->name,

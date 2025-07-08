@@ -70,14 +70,6 @@ class ServiceData extends Data implements DataServiceData{
         $data->margin ??= 0;
         $props = &$data->props;
 
-        if (isset($data->reference_type) && isset($data->reference_id)){
-            $reference = $new->{$data->reference_type.'Model'}();
-            $reference = (isset($data->reference_id)) ? $reference->findOrFail($data->reference_id) : $reference;
-            $props['prop_reference'] = $reference->toViewApi()->only([
-                'id','name','flag','label'
-            ]);
-        }
-
         $service_label = $new->ServiceLabelModel();
         if (isset($data->service_label_id)) $service_label = $service_label->findOrFail($data->service_label_id);
         $props['prop_service_label'] = $service_label->toViewApi()->resolve();

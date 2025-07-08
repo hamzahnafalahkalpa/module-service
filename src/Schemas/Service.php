@@ -41,6 +41,7 @@ class Service extends PackageManagement implements ContractsService
         }
 
         $model = $this->usingEntity()->updateOrCreate(...$create);
+        $service_dto->props['prop_reference'] = $model->toViewApi()->resolve();
         if (isset($service_dto->service_prices) && count($service_dto->service_prices) > 0) {
             foreach ($service_dto->service_prices as $service_price) {
                 $service_price->service_id = $model->getKey();
