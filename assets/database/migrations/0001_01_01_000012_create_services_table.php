@@ -2,6 +2,7 @@
 
 use Hanafalah\ModuleService\Enums\Service\Status;
 use Hanafalah\ModuleService\Models\Service;
+use Hanafalah\ModuleService\Models\ServiceLabel;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -27,10 +28,14 @@ return new class extends Migration
         $table_name = $this->__table->getTable();
         if (!$this->isTableExists()) {
             Schema::create($table_name, function (Blueprint $table) {
+                $service_label = app(config('database.models.ServiceLabel', ServiceLabel::class));
+
                 $table->ulid('id')->primary();
                 $table->string("name");
                 $table->string("reference_id", 36);
                 $table->string('reference_type', 50);
+                $table->foreignIdFor($service_label::class)->nullable()->index()->constrained()
+                      ->cascadeOnUpdate()->restrictOnDelete();
                 $table->string('status')->default(Status::ACTIVE->value)->nullable(false);
                 $table->unsignedBigInteger('price')->default(0)->nullable(false);
                 $table->unsignedBigInteger('cogs')->default(0)->nullable(false);

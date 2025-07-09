@@ -6,10 +6,10 @@ class ShowService extends ViewService
 {
   public function toArray(\Illuminate\Http\Request $request): array
   {
-    if (request()->has('recursive')) {
-      $this->load('childs');
-    }
     $arr = [
+      'service_label'     => $this->relationValidation('serviceLabel',function(){
+        return $this->serviceLabel->toShowApi()->resolve();
+      }, $this->prop_service_label),
       'service_items'  => $this->relationValidation('serviceItems', function () {
         return $this->serviceItems->transform(function ($item) {
           return $item->toShowApi()->resolve();

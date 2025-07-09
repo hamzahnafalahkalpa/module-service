@@ -21,6 +21,7 @@ class Service extends BaseModel
     protected $list       = [
         'id', 'parent_id', 'name', 'status', 
         'reference_id', 'reference_type', 'price',
+        'service_label_id',
         'cogs', 'margin', 'props'
     ];
     protected $show       = [];
@@ -51,6 +52,7 @@ class Service extends BaseModel
 
     public function getViewResource(){return ViewService::class;}
     public function getShowResource(){return ShowService::class;}
+    public function serviceLabel(){return $this->belongsToModel('ServiceLabel');}
     public function reference(){return $this->morphTo();}
     public function serviceItem(){return $this->hasOneModel('ServiceItem', 'service_id');}
     public function serviceItems(){return $this->hasManyModel('ServiceItem', 'service_id')->whereNull('parent_id')->with('childs');}
