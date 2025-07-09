@@ -2,10 +2,7 @@
 
 namespace Hanafalah\ModuleService\Concerns;
 
-use Hanafalah\ModuleService\Enums;
-
-trait HasServiceItem
-{
+trait HasServiceItem{
     protected static function bootHasServiceItem()
     {
         static::deleting(function ($query) {
@@ -14,12 +11,6 @@ trait HasServiceItem
         });
     }
 
-    public function serviceItem()
-    {
-        return $this->morphOneModel('ServiceItem', 'reference');
-    }
-    public function serviceItems()
-    {
-        return $this->morphManyModel('ServiceItem', 'reference');
-    }
+    public function serviceItem(){return $this->morphOneModel('ServiceItem', 'reference');}
+    public function serviceItems(){return $this->morphManyModel('ServiceItem', 'reference');}
 }

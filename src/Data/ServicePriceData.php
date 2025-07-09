@@ -47,7 +47,7 @@ class ServicePriceData extends Data implements DataServicePriceData{
 
     #[MapInputName('margin')]
     #[MapName('margin')]
-    public ?int $margin = 0;
+    public ?float $margin = 0;
 
     #[MapInputName('props')]
     #[MapName('props')]
