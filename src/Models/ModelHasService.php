@@ -5,11 +5,15 @@ namespace Hanafalah\ModuleService\Models;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Hanafalah\LaravelHasProps\Concerns\HasProps;
 use Hanafalah\LaravelSupport\Models\BaseModel;
+use Illuminate\Database\Eloquent\Concerns\HasUlids;
 
 class ModelHasService extends BaseModel
 {
-    use HasProps, SoftDeletes;
+    use HasUlids, HasProps, SoftDeletes;
 
+    public $incrementing = false;
+    protected $keyType = 'string';
+    protected $primaryKey = 'string';
     protected $list  = ["id", "service_id", "reference_id", "reference_type"];
     protected $show  = [];
 
