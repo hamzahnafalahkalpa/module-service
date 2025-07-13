@@ -3,8 +3,8 @@
     "description": "module for service in klinik or puskesmas",
     "type": "library",
     "require": {
-        "hanafalah/laravel-support": "dev-main",
-        "hanafalah/module-transaction": "dev-main"
+        "hanafalah/laravel-support": "1.x-dev as 1.0",
+        "hanafalah/module-transaction": "1.x-dev as 1.0"
     },
     "autoload": {
         "psr-4": {
