@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 class Service extends PackageManagement implements ContractsService
 {
     protected string $__entity   = 'Service';
-    public static $service_model;
+    public $service_model;
 
     protected array $__cache = [
         'index' => [
@@ -57,6 +57,6 @@ class Service extends PackageManagement implements ContractsService
         }
         $this->fillingProps($model,$service_dto->props);
         $model->save();
-        return static::$service_model = $model;
+        return $this->service_model = $model;
     }
 }

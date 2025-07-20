@@ -8,8 +8,8 @@ use Hanafalah\ModuleService\Contracts\Schemas\PriceComponent as ContractsPriceCo
 class PriceComponent extends PackageManagement implements ContractsPriceComponent
 {
     protected string $__entity = 'PriceComponent';
-    public static $price_component;
-    public static $price = 0;
+    public $price_component;
+    public $price = 0;
 
     public function prepareStorePriceComponent(mixed $attributes = null){
         $attributes ??= request()->all();

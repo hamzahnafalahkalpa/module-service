@@ -12,7 +12,7 @@ use Hanafalah\LaravelSupport\Supports\PackageManagement;
 class ServiceItem extends PackageManagement implements ContractServiceItem
 {
     protected string $__entity = 'ServiceItem';
-    public static $service_item_model;
+    public $service_item_model;
 
     public function prepareStoreServiceItem(?array $attributes = null): Model{
         $attributes ??= request()->all();
@@ -50,7 +50,7 @@ class ServiceItem extends PackageManagement implements ContractServiceItem
 
         $service_price_schema = $this->schemaContract('service_price');
         $service_price = $service_price_schema->prepareStoreServicePrice($attributes['service_price']);
-        return static::$service_item_model = $model;
+        return $this->service_item_model = $model;
     }
 
     public function prepareViewServiceItemList(?array $attributes = null): array
@@ -59,7 +59,7 @@ class ServiceItem extends PackageManagement implements ContractServiceItem
 
         $model = $this->serviceItem()->conditionals($this->mergeCondition([]))->get();
 
-        return static::$service_item_model = $model;
+        return $this->service_item_model = $model;
     }
 
     public function addOrChange(?array $attributes = []): self
