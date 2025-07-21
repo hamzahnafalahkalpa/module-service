@@ -42,7 +42,7 @@ class PriceComponent extends PackageManagement implements ContractsPriceComponen
                 $keep[] = $tariff->getKey();
                 $price += $tariff['price'] ?? 0;
             }
-            static::$price = $price;
+            $this->price = $price;
             $remove = array_diff($tariff_component_ids, $keep);
             if (isset($attributes['service'])) {
                 $attributes['service']->price = $price;
