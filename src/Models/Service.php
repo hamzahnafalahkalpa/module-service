@@ -28,8 +28,15 @@ class Service extends BaseModel
 
     protected $casts = [
         'name' => 'string',
-        'reference_type' => 'string'
+        'reference_type' => 'string',
+        'service_label_name' => 'string'
     ];
+
+    public function getPropsQuery(): array{
+        return [
+            'service_label_name' => 'props->prop_service_label->name',
+        ];
+    }
 
     protected static function booted(): void{
         parent::booted();
