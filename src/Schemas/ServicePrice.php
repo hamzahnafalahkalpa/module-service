@@ -10,7 +10,7 @@ use Hanafalah\ModuleService\Contracts\Data\ServicePriceData;
 class ServicePrice extends PackageManagement implements ContractServicePrice
 {
     protected string $__entity = 'ServicePrice';
-    public static $service_price_model;
+    public $service_price_model;
 
     public function prepareStoreServicePrice(ServicePriceData $service_price_dto): Model{
         $add = [
@@ -31,6 +31,6 @@ class ServicePrice extends PackageManagement implements ContractServicePrice
         $model = $this->ServicePriceModel()->updateOrCreate($guard, $add);
         $this->fillingProps($model, $service_price_dto->props);
         $model->save();
-        return static::$service_price_model = $model;
+        return $this->service_price_model = $model;
     }
 }

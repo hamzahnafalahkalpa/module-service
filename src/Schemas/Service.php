@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 class Service extends PackageManagement implements ContractsService
 {
     protected string $__entity   = 'Service';
-    public static $service_model;
+    public $service_model;
 
     protected array $__cache = [
         'index' => [
@@ -25,9 +25,9 @@ class Service extends PackageManagement implements ContractsService
             'service_label_id' => $service_dto->service_label_id,
             'parent_id' => $service_dto->parent_id,
             'name'      => $service_dto->name,
-            'price'     => $service_dto->price,
-            'margin'    => $service_dto->margin,
-            'cogs'      => $service_dto->cogs
+            'price'     => $service_dto->price ?? 0,
+            'margin'    => $service_dto->margin ?? 0,
+            'cogs'      => $service_dto->cogs ?? 0
         ];
         if (isset($service_dto->id)){
             $guard = ['id' => $service_dto->id];
@@ -41,7 +41,7 @@ class Service extends PackageManagement implements ContractsService
         }
 
         $model = $this->usingEntity()->updateOrCreate(...$create);
-        $service_dto->props['prop_reference'] = $model->toViewApi()->resolve();
+        $service_dto->props['prop_reference'] = $model->reference->toViewApi()->resolve();
         if (isset($service_dto->service_prices) && count($service_dto->service_prices) > 0) {
             foreach ($service_dto->service_prices as $service_price) {
                 $service_price->service_id = $model->getKey();
@@ -57,6 +57,6 @@ class Service extends PackageManagement implements ContractsService
         }
         $this->fillingProps($model,$service_dto->props);
         $model->save();
-        return static::$service_model = $model;
+        return $this->service_model = $model;
     }
 }

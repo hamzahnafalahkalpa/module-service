@@ -32,6 +32,7 @@ return new class extends Migration
 
                 $table->ulid('id')->primary();
                 $table->string("name");
+                $table->string("service_code",50)->nullable();
                 $table->string("reference_id", 36);
                 $table->string('reference_type', 50);
                 $table->foreignIdFor($service_label::class)->nullable()->index()->constrained()

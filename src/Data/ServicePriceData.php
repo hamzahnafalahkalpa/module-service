@@ -61,7 +61,6 @@ class ServicePriceData extends Data implements DataServicePriceData{
     }
 
     private function calculatePrice($data){
-        $price = &$data->price;
         $price = $data->cogs + $data->cogs * $data->margin/100;
         $data->props['total_tax'] = $price * $data->tax/100;
         return $price;

@@ -11,7 +11,7 @@ use Hanafalah\ModuleService\Contracts\Schemas\ServiceLabel as ContractsServiceLa
 class ServiceLabel extends Unicode implements ContractsServiceLabel
 {
     protected string $__entity = 'ServiceLabel';
-    public static $service_label_model;
+    public $service_label_model;
 
     protected array $__cache = [
         'index' => [
@@ -23,7 +23,7 @@ class ServiceLabel extends Unicode implements ContractsServiceLabel
 
     public function prepareStoreServiceLabel(ServiceLabelData $service_label_dto): Model{     
         $service_label = $this->prepareStoreUnicode($service_label_dto);       
-        return static::$service_label_model = $service_label;
+        return $this->service_label_model = $service_label;
     }
 
     public function serviceLabel(mixed $conditionals = null): Builder{
