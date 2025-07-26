@@ -16,6 +16,7 @@ class ViewService extends ApiResource
   {
     $arr = [
       'id'             => $this->id,
+      'service_code'   => $this->service_code,
       'name'           => $this->name,
       "reference_id"   => $this->reference_id,
       "reference_type" => $this->reference_type,
