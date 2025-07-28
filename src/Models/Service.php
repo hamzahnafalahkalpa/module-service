@@ -41,6 +41,7 @@ class Service extends BaseModel
     protected static function booted(): void{
         parent::booted();
         static::creating(function ($query) {
+            $query->service_code ??= static::hasEncoding('SERVICE');
             $query->status ??= self::getStatus(Status::ACTIVE->value);
         });
     }
