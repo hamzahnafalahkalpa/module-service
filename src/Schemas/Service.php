@@ -50,11 +50,17 @@ class Service extends PackageManagement implements ContractsService
                 $model->cogs              += $service_price->cogs;
             }
         }
-        if ($model->cogs > 0){
-            $model->margin = floatval(($model->price - $model->cogs)* 100/ $model->cogs);
-        }else{
-            $model->margin = 0;
+
+        if (isset($service_dto->service_items) && count($service_dto->service_items) > 0) {
+            foreach ($service_dto->service_items as &$service_item) {
+                $service_item->service_id = $model->getKey();
+                $this->schemaContract('service_item')->prepareStoreServiceItem($service_item);
+            }
         }
+
+        $model->margin ($model->cogs > 0)
+            ? floatval(($model->price - $model->cogs)* 100/ $model->cogs)
+            : 0;
         $this->fillingProps($model,$service_dto->props);
         $model->save();
         return $this->service_model = $model;

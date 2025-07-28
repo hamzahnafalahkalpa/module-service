@@ -59,6 +59,11 @@ class ServiceData extends Data implements DataServiceData{
     #[DataCollectionOf(ServicePriceData::class)]
     public ?array $service_prices = null;
 
+    #[MapInputName('service_items')]
+    #[MapName('service_items')]
+    #[DataCollectionOf(ServiceItemData::class)]
+    public ?array $service_items = null;
+
     #[MapInputName('props')]
     #[MapName('props')]
     public ?array $props = [];
