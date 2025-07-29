@@ -58,7 +58,7 @@ class Service extends PackageManagement implements ContractsService
             }
         }
 
-        $model->margin ($model->cogs > 0)
+        $model->margin = ($model->cogs > 0)
             ? floatval(($model->price - $model->cogs)* 100/ $model->cogs)
             : 0;
         $this->fillingProps($model,$service_dto->props);
