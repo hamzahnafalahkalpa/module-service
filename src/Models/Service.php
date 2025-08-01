@@ -76,11 +76,11 @@ class Service extends BaseModel
         return $this->hasOneThroughModel(
             'Service',
             'ModelHasService',
-            $service_table . '.reference_id',
+            $service_table . '.model_id',
             $this->ServiceModel()->getKeyName(),
             $this->getKeyName(),
             $this->ServiceModel()->getForeignKey()
-        )->where($service_table . '.reference_type', $this->getMorphClass());
+        )->where($service_table . '.model_type', $this->getMorphClass());
     }
     public function modelHasService(){return $this->hasOneModel('ModelHasService', 'service_id');}
     public function servicePrice(){return $this->hasOneModel('ServicePrice', 'service_id');}

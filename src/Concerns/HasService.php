@@ -78,8 +78,7 @@ trait HasService
         ]);
     }
 
-    public function service()
-    {
+    public function service(){
         return $this->morphOneModel('Service', 'reference');
     }
 
@@ -88,9 +87,9 @@ trait HasService
         return $this->belongsToManyModel(
             'Service',
             'ModelHasService',
-            $this->ModelHasServiceModel()->getTableName() . '.reference_id',
+            $this->ModelHasServiceModel()->getTableName() . '.model_id',
             $this->ServiceModel()->getForeignKey()
-        )->where($this->ModelHasServiceModel()->getTableName() . '.reference_type', $this->getMorphClass());
+        )->where($this->ModelHasServiceModel()->getTableName() . '.model_type', $this->getMorphClass());
     }
 
     public function hasService()
@@ -99,15 +98,15 @@ trait HasService
         return $this->hasOneThroughModel(
             'Service',
             'ModelHasService',
-            $service_table . '.reference_id',
+            $service_table . '.model_id',
             $this->ServiceModel()->getKeyName(),
             $this->getKeyName(),
             $this->ServiceModel()->getForeignKey()
-        )->where($service_table . '.reference_type', $this->getMorphClass());
+        )->where($service_table . '.model_type', $this->getMorphClass());
     }
 
     public function modelHasService()
     {
-        return $this->morphOneModel('ModelHasService', 'reference');
+        return $this->morphOneModel('ModelHasService', 'model');
     }
 }

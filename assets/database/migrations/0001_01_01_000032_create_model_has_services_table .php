@@ -32,8 +32,8 @@ return new class extends Migration
                 $table->foreignIdFor($service::class)
                     ->nullable()->index()->constrained()
                     ->cascadeOnUpdate()->restrictOnDelete();
-                $table->string("reference_id", 36);
-                $table->string('reference_type', 50);
+                $table->string("model_id", 36);
+                $table->string('model_type', 50);
                 $table->json('props')->nullable();
                 $table->timestamps();
                 $table->softDeletes();

@@ -13,16 +13,10 @@ class ModelHasService extends BaseModel
 
     public $incrementing = false;
     protected $keyType = 'string';
-    protected $primaryKey = 'string';
-    protected $list  = ["id", "service_id", "reference_id", "reference_type"];
+    protected $primaryKey = 'id';
+    protected $list  = ["id", "service_id", "model_id", "model_type"];
     protected $show  = [];
 
-    public function reference()
-    {
-        return $this->morphTo(__FUNCTION__, $this->getTableName() . '.reference_type', $this->getTableName() . '.reference_id');
-    }
-    public function service()
-    {
-        return $this->belongsToModel('Service');
-    }
+    public function model(){return $this->morphTo();}
+    public function service(){return $this->belongsToModel('Service');}
 }
