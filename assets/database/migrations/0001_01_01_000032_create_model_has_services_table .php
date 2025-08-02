@@ -38,8 +38,8 @@ return new class extends Migration
                 $table->timestamps();
                 $table->softDeletes();
 
-                $table->index(['reference_type', 'reference_id'], 'sv_ref');
-                $table->index(['reference_type', 'reference_id', $service->getForeignKey()], 'sv_ref_fk');
+                $table->index(['model_type', 'model_id'], 'sv_ref');
+                $table->index(['model_type', 'model_id', $service->getForeignKey()], 'sv_ref_fk');
             });
         }
     }
