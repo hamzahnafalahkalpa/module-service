@@ -1,6 +1,5 @@
 <?php
 
-use Hanafalah\ModulePayment\Models\Price\TariffComponent;
 use Hanafalah\ModuleService\Models\Service;
 use Hanafalah\ModuleService\Models\ServicePrice;
 use Illuminate\Database\Migrations\Migration;
@@ -28,7 +27,6 @@ return new class extends Migration
         if (!$this->isTableExists()) {
             Schema::create($table_name, function (Blueprint $table) {
                 $service = app(config('database.models.Service', Service::class));
-                $tariff_component = app(config('database.models.TariffComponent', TariffComponent::class));
 
                 $table->ulid('id')->primary();
                 $table->foreignIdFor($service::class)
@@ -37,9 +35,6 @@ return new class extends Migration
                     ->cascadeOnUpdate()->restrictOnDelete();
                 $table->string('service_item_id', 36);
                 $table->string('service_item_type', 50);
-                $table->foreignIdFor($tariff_component::class)
-                    ->nullable()->index()
-                    ->constrained()->cascadeOnUpdate()->restrictOnDelete();
                 $table->unsignedBigInteger('price')->default(0);
                 $table->unsignedBigInteger('cogs')->default(0);
                 $table->unsignedSmallInteger('tax')->default(0);
