@@ -70,14 +70,15 @@ class ServiceData extends Data implements DataServiceData{
 
     public static function after(self $data): self{
         $new = static::new();
+        $props = &$data->props;
+        
         $data->price ??= 0;
         $data->cogs ??= 0;
         $data->margin ??= 0;
-        $props = &$data->props;
 
         $service_label = $new->ServiceLabelModel();
         if (isset($data->service_label_id)) $service_label = $service_label->findOrFail($data->service_label_id);
-        $props['prop_service_label'] = $service_label->toViewApi()->resolve();
+        $props['prop_service_label'] = $service_label->toViewApiOnlies('id','name','flag','label');
         return $data;
     }
 }

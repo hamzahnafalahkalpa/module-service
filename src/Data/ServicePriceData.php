@@ -53,6 +53,12 @@ class ServicePriceData extends Data implements DataServicePriceData{
     #[MapName('props')]
     public ?array $props = [];
 
+    public static function before(array &$attributes){
+        $attributes['price'] ??= $attributes['cogs'] ?? 0;
+        $attributes['cogs'] ??= $attributes['price'] ?? 0;
+        $attributes['tax'] ??= 0;
+    }
+
     public static function after(self $data): self{
         $new = static::new();
         $props = &$data->props;

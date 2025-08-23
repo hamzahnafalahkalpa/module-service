@@ -25,7 +25,7 @@ class ViewService extends ApiResource
       "price"          => $this->price,
       "cogs"           => $this->cogs,
       "margin"         => floatval($this->margin),
-      'service_label'  => $this->prop_service_label,
+      'service_label'  => $this->prop_service_label ?? null,
       'service_items'  => $this->relationValidation('serviceItems', function () {
         return $this->serviceItems->transform(function ($item) {
           return $item->toViewApi()->resolve();

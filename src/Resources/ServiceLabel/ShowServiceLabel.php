@@ -2,6 +2,8 @@
 
 namespace Hanafalah\ModuleService\Resources\ServiceLabel;
 
+use Hanafalah\LaravelSupport\Resources\Unicode\ShowUnicode;
+
 class ShowServiceLabel extends ViewServiceLabel
 {
   /**
@@ -12,8 +14,9 @@ class ShowServiceLabel extends ViewServiceLabel
    */
   public function toArray(\Illuminate\Http\Request $request): array
   {
-    $arr = [];
-    $arr = $this->mergeArray(parent::toArray($request),$arr);
+    $arr  = [];
+    $show = $this->resolveNow(new ShowUnicode($this));
+    $arr  = $this->mergeArray(parent::toArray($request),$show,$arr);
     return $arr;
   }
 }
