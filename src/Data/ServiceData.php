@@ -33,6 +33,10 @@ class ServiceData extends Data implements DataServiceData{
     #[MapName('reference_id')]
     public mixed $reference_id = null;
 
+    #[MapInputName('reference_model')]
+    #[MapName('reference_model')]
+    public ?object $reference_model = null;
+
     #[MapInputName('service_label_id')]
     #[MapName('service_label_id')]
     public mixed $service_label_id = null;

@@ -20,8 +20,9 @@ trait HasService
                 $service = app(config('app.contracts.Service'))->prepareStoreService(
                     $query->requestDTO(config('app.contracts.ServiceData'),[
                         'parent_id'      => $parent_id,
-                        "reference_id"   => $query->id,
-                        "reference_type" => $query->getMorphClass(),
+                        'reference_id'   => $query->id,
+                        'reference_type' => $query->getMorphClass(),
+                        'reference_model' => $query,
                         'name' => $query->name
                     ])
                 );
