@@ -11,13 +11,6 @@
             "Hanafalah\\ModuleService\\": "src/"
         }
     },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Hanafalah\\ModuleService\\ModuleServiceServiceProvider"
-            ]
-        }
-    },
     "authors": [
         {
             "name": "hamzah nur al falah",
