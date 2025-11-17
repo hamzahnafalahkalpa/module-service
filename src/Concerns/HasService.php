@@ -44,10 +44,10 @@ trait HasService
                 $parent_id = null;
                 if ($service_parent) $parent_id = $service_parent->getKey();
                 $service = $query->service()->updateOrCreate([
-                    'parent_id'         => $parent_id,
                     "reference_id"      => $query->id,
                     "reference_type"    => $query->getMorphClass()
                 ], [
+                    'parent_id'         => $parent_id,
                     'name' => $query->name,
                 ]);
                 if ($query->service_code) {
@@ -58,7 +58,7 @@ trait HasService
         });
     }
 
-    protected function isUsingService(): bool{
+    public function isUsingService(): bool{
         $configs = config('module-service.is_using_services',[]);
         return in_array($this->getMorphClass(), $configs);
     }
@@ -66,8 +66,11 @@ trait HasService
     protected static function parentService($parent_id)
     {
         if (isset($parent_id)) {
-            $parent = (new static)->find($parent_id)->load('service');
-            return $parent->service;
+            $parent = (new static)->withoutGlobalScopes()->find($parent_id);
+            if (isset($parent)){
+                $parent->load('service');
+                return $parent->service;
+            }
         }
         return null;
     }

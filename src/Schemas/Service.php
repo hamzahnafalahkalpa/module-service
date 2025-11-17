@@ -31,16 +31,16 @@ class Service extends PackageManagement implements ContractsService
         ];
         if (isset($service_dto->id)){
             $guard = ['id' => $service_dto->id];
-            $create = [$guard];
         }else{
             $guard = [
                 'reference_type' => $service_dto->reference_type,
                 'reference_id' => $service_dto->reference_id,
             ];
-            $create = [$guard, $add];
         }
+        $create = [$guard,$add];
 
         $model = $this->usingEntity()->updateOrCreate(...$create);
+        $model->load(['reference' => fn($q) => $q->withoutGlobalScopes() ]);
         $reference_model = $service_dto->reference_model ?? $model->reference;
         $service_dto->props['prop_reference'] = $reference_model->toViewApi()->resolve();
         if (isset($service_dto->service_prices) && count($service_dto->service_prices) > 0) {
