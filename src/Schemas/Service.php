@@ -49,6 +49,7 @@ class Service extends PackageManagement implements ContractsService
                 $service_price             = $this->schemaContract('service_price')->prepareStoreServicePrice($service_price);
                 $model->price             += $service_price->price;
                 $model->cogs              += $service_price->cogs;
+                $model->total_tax         += $service_price->total_tax;
             }
         }
 
