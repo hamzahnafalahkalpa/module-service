@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     use Hanafalah\LaravelSupport\Concerns\NowYouSeeMe;
-    private $__table;
+    
 
     public function __construct()
     {
