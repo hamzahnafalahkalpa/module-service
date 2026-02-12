@@ -20,7 +20,9 @@ class ViewService extends ApiResource
       'name'           => $this->name,
       "reference_id"   => $this->reference_id,
       "reference_type" => $this->reference_type,
-      "reference"      => $this->prop_reference,
+      "reference"      => $this->relationValidation('reference',function(){
+        return $this->reference->toViewApi()->resolve();
+      },$this->prop_reference),
       "status"         => $this->status,
       "price"          => $this->price,
       "cogs"           => $this->cogs,
